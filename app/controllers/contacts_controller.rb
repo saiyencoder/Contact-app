@@ -1,9 +1,54 @@
 class ContactsController < ApplicationController
-  def contacts_action
-    @contact_1 = Contact.find(1)
-    @contact_2 = Contact.find(2)
-    @contact_3 = Contact.find(3)
-    @contact_4 = Contact.find(4)
-    render 'contacts_page.html.erb'
+
+  def index                  
+    @contacts = Contact.all
   end
+
+  def new
+    
+  end
+
+  def create
+    contact = Contact.new(
+                          first_name: params[:first_name],
+                          middle_name: params[:middle_name],
+                          last_name: params[:last_name],
+                          email: params[:email],
+                          phone_number: params[:phone_number],
+                          bio: params[:bio]
+                          )
+    contact.save
+    redirect_to '/all_contacts/#{contact.id}'
+  end
+
+  def show
+    @contact = Contact.find(params[:id])                                            
+  end
+
+  def edit
+    @contact = Contact.find(params[:id])
+  end
+
+  def update
+    contact = Contact.find(params[:id])
+
+    contact.assign_attributes(
+                              first_name: params[:first_name],
+                              middle_name: params[:middle_name],
+                              last_name: params[:last_name],
+                              email: params[:email],
+                              phone_number: params[:phone_number],
+                              bio: params[:bio]
+                              )
+
+    contact.save
+    redirect_to '/all_contacts/#{contact.id}'
+  end
+
+  def destory
+    contact = Contact.find(params[:id])
+    contact.destory
+    redirect_to '/all_contacts'
+  end
+
 end

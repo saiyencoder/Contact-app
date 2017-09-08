@@ -1,26 +1,12 @@
-contact = Contact.new(
-                      first_name: "Luke",
-                      last_name: "Cage",
-                      email: "lcage@hero4hire.com",
-                      phone_number: "1-800-437-7012"
-                      )
+100.times do
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
 
-contact.save
+  contact = Contact.new(
+                        first_name: first_name,
+                        last_name: last_name,
+                        email: Faker::Internet.free_email("#{first_name}.#{last_name}"),
+                        phone_number: Faker::PhoneNumber.phone_number
+                        )
 
-contact = Contact.new(
-                      first_name: "Danny",
-                      last_name: "Rand",
-                      email: "IronFirst@hero4hire.com",
-                      phone_number: "1-800-437-7012"
-                      )
-
-contact.save
-
-contact = Contact.new(
-                      first_name: "Jessica",
-                      last_name: "Jones",
-                      email: "jjones@hero4hire.com",
-                      phone_number: "1-800-437-7012"
-                      )
-
-contact.save
+end
